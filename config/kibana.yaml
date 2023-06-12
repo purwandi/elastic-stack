@@ -1,0 +1,19 @@
+server:
+  host: "0.0.0.0"
+  shutdownTimeout: "5s"
+
+elasticsearch:
+  serviceAccountToken: AAEAAWVsYXN0aWMva2liYW5hL2tpYmFuYS10b2tlbjpzYUhOdzlHX1FPdUxEQjFpM2x6M19n
+  hosts:
+    - https://data-1.purwandi.id:9200
+    - https://data-2.purwandi.id:9200
+  ssl:
+    certificateAuthorities: /usr/share/kibana/config/certs/purwandi.id.crt
+    certificate: /usr/share/kibana/config/certs/elasticsearch.purwandi.id.crt
+    key: /usr/share/kibana/config/certs/elasticsearch.purwandi.id.key
+
+monitoring:
+  ui:
+    enabled: true
+    ccs:
+      enabled: true

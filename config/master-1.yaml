@@ -1,0 +1,55 @@
+bootstrap:
+  memory_lock: true
+
+http:
+  port: "9200"
+
+path:
+  data: /usr/share/elasticsearch/data
+  logs: /usr/share/elasticsearch/logs
+
+transport:
+  port: "9300"
+
+network:
+  host: master-1.purwandi.id
+  publish_host: master-1.purwandi.id
+  bind_host: 0.0.0.0
+
+cluster:
+  name: elastic
+  initial_master_nodes:
+    - master-1.purwandi.id
+    - master-2.purwandi.id
+    - master-3.purwandi.id
+
+discovery:
+  initial_state_timeout: 10m
+  seed_hosts:
+    - master-1.purwandi.id
+    - master-2.purwandi.id
+    - master-3.purwandi.id
+
+node: 
+  name: master-1.purwandi.id
+  roles:
+    - master
+
+xpack:
+  security:
+    enabled: true
+    http:
+      ssl:
+        enabled: true
+        key: /usr/share/elasticsearch/config/certs/elasticsearch.purwandi.id.key
+        certificate: /usr/share/elasticsearch/config/certs/elasticsearch.purwandi.id.crt
+        certificate_authorities: /usr/share/elasticsearch/config/certs/purwandi.id.crt
+    transport:
+      ssl:
+        enabled: true
+        verification_mode: full
+        key: /usr/share/elasticsearch/config/certs/elasticsearch.purwandi.id.key
+        certificate: /usr/share/elasticsearch/config/certs/elasticsearch.purwandi.id.crt
+        certificate_authorities: /usr/share/elasticsearch/config/certs/purwandi.id.crt
+#   ml:
+#     enabled: false

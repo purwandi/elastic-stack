@@ -1,0 +1,111 @@
+services: 
+  master-1: 
+    image: elasticsearch:8.8.0
+    container_name: master-1
+    environment:
+      ES_JAVA_OPTS: "-Xmx1G -Xms1G"
+      ELASTIC_PASSWORD: oiJC7tiviVUcwXqzdqcx
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    networks:
+      default:
+        aliases:
+          - master-1.purwandi.id
+    volumes:
+      - ./config/master-1.yaml:/usr/share/elasticsearch/config/elasticsearch.yml
+      - ./data/master-1/data:/usr/share/elasticsearch/data
+      - ./data/master-1/logs:/usr/share/elasticsearch/logs
+      - ./certs:/usr/share/elasticsearch/config/certs
+    ports:
+      - 9200:9200
+      - 9300:9300      
+  master-2:
+    image: elasticsearch:8.8.0
+    container_name: master-2
+    environment:
+      ES_JAVA_OPTS: "-Xmx1G -Xms1G"
+      ELASTIC_PASSWORD: oiJC7tiviVUcwXqzdqcx
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - ./config/master-2.yaml:/usr/share/elasticsearch/config/elasticsearch.yml
+      - ./data/master-2/data:/usr/share/elasticsearch/data
+      - ./data/master-2/logs:/usr/share/elasticsearch/logs
+      - ./certs:/usr/share/elasticsearch/config/certs
+    networks:
+      default:
+        aliases:
+          - master-2.purwandi.id
+  master-3:
+    image: elasticsearch:8.8.0
+    container_name: master-3
+    environment:
+      ES_JAVA_OPTS: "-Xmx1G -Xms1G"
+      ELASTIC_PASSWORD: oiJC7tiviVUcwXqzdqcx
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - ./config/master-3.yaml:/usr/share/elasticsearch/config/elasticsearch.yml
+      - ./data/master-3/data:/usr/share/elasticsearch/data
+      - ./data/master-3/logs:/usr/share/elasticsearch/logs
+      - ./certs:/usr/share/elasticsearch/config/certs
+    networks:
+      default:
+        aliases:
+          - master-3.purwandi.id
+
+  data-1:
+    image: elasticsearch:8.8.0
+    container_name: data-1
+    environment:
+      ES_JAVA_OPTS: "-Xmx1G -Xms1G"
+      ELASTIC_PASSWORD: oiJC7tiviVUcwXqzdqcx
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - ./config/data-1.yaml:/usr/share/elasticsearch/config/elasticsearch.yml
+      - ./data/data-1/data:/usr/share/elasticsearch/data
+      - ./data/data-1/logs:/usr/share/elasticsearch/logs
+      - ./certs:/usr/share/elasticsearch/config/certs
+    networks:
+      default:
+        aliases:
+          - data-1.purwandi.id
+  data-2:
+    image: elasticsearch:8.8.0
+    container_name: data-2
+    environment:
+      ES_JAVA_OPTS: "-Xmx1G -Xms1G"
+      ELASTIC_PASSWORD: oiJC7tiviVUcwXqzdqcx
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - ./config/data-2.yaml:/usr/share/elasticsearch/config/elasticsearch.yml
+      - ./data/data-2/data:/usr/share/elasticsearch/data
+      - ./data/data-2/logs:/usr/share/elasticsearch/logs
+      - ./certs:/usr/share/elasticsearch/config/certs
+    networks:
+      default:
+        aliases:
+          - data-2.purwandi.id
+
+  kibana:
+    image: kibana:8.8.0 
+    container_name: kibana
+    environment:
+      ES_JAVA_OPTS: "-Xmx1G -Xms1G"
+    volumes: 
+      - ./config/kibana.yaml:/usr/share/kibana/config/kibana.yml
+      - ./certs:/usr/share/kibana/config/certs
+    ports:
+      - 5601:5601
